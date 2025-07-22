@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import auth, contacts, business_cards, coworkers
 from app.database.connection import engine, Base
+from app.routers.auth import router as auth_router
 
 # データベーステーブルの作成
 Base.metadata.create_all(bind=engine)
@@ -15,7 +16,7 @@ app = FastAPI(
 # CORS設定
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.jsの開発サーバー
+    allow_origins=["*"],  # Next.jsの開発サーバー
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
