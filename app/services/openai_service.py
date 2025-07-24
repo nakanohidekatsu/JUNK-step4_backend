@@ -56,7 +56,7 @@ async def summarize_meeting_content(content: str) -> str:
         # 具体的なエラーメッセージを返す
         error_str = str(e).lower()
         if "api key" in error_str or "unauthorized" in error_str:
-            return "APIキーが設定されていないか無効です。"
+            return "APIキーが設定されていないか無効です。" + error_str
         elif "quota" in error_str or "billing" in error_str:
             return "OpenAI APIの利用制限に達しています。"
         elif "rate_limit" in error_str:
