@@ -7,6 +7,7 @@ load_dotenv()
 
 # ロガー設定
 logger = logging.getLogger(__name__)
+api_key=os.getenv("OPENAI_API_KEY") #add nakano
 
 # OpenAI クライアントの初期化
 client = AsyncOpenAI(
@@ -56,7 +57,7 @@ async def summarize_meeting_content(content: str) -> str:
         # 具体的なエラーメッセージを返す
         error_str = str(e).lower()
         if "api key" in error_str or "unauthorized" in error_str:
-            return "APIキーが設定されていないか無効です。" + error_str + "{api_key}" #nakano add
+            return "APIキーが設定されていないか無効です。" + error_str + f"{api_key}" #nakano add
         elif "quota" in error_str or "billing" in error_str:
             return "OpenAI APIの利用制限に達しています。"
         elif "rate_limit" in error_str:
